@@ -1,0 +1,53 @@
+/* .container {
+    display: flex;
+    flex: 1;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContainer {
+    display: flex;
+    flex: 0.5;
+    align-items: center;
+    margin-top: 7%;
+    width: 100%;
+}
+
+.imageContainer {
+    display: flex;
+    flex: 0.1;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.checkBoxContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-right: 50%;
+}
+
+.checkBoxText {
+    font-size: 13px;
+    font-weight: semibold;
+    padding-top: 3%;
+}
+
+.buttonsContainer {
+    width: 80%;
+    margin-top: 3%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 2%;
+}
+
+.imageText {
+    font-size: 20px;
+    font-weight: bold;
+} */
