@@ -15,7 +15,7 @@ import { Checkbox } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TextInputField from "../components/TextInputField";
 import FormSubmitButton from "../components/FormSubmitButton";
-import BottomTabs from "../components/BottomTabs";
+
 
 
 export default function LoginScreen({ navigation }) {

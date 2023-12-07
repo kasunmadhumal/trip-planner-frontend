@@ -16,6 +16,7 @@ import Location from "./Location";
 import FinalPlan from "./FinalPlan";
 
 
+
 export default function PlanJourneyScreen() {
   const [pageNumber, setPageNumber] = useState(1);
   const [keyboardIsOpen, setKeyboardIsOpen] = useState(false);

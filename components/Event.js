@@ -2,45 +2,44 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Dimensions } from "react-native";
 import PreferencesView from "./PreferencesView";
 
-export default function Event({
-  eventNumber,
-  eventName,
-  alocatedTimeForEvent,
-  preferencesList,
-}) {
+export default function Event({ item, getIndex, drag, isActive }) {
 
+  const index = getIndex(item);
+  
   return (
-    <View style={styles.eventContainer}>
-      <View style={styles.eventNumberContainer}>
-        <View style={styles.number}>
-          <Text style={styles.buttonText}>{eventNumber}</Text>
+    <TouchableOpacity onLongPress={drag}>
+      <View style={styles.eventContainer}>
+        <View style={styles.eventNumberContainer}>
+          <View style={styles.number}>
+            <Text style={styles.buttonText}>{index}</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.eventBodyContainer}>
-        <View style={styles.tittleRow}>
-          <Text style={styles.tittleText}>{eventName}</Text>
-          <Text style={styles.timeText}>Time : {alocatedTimeForEvent}</Text>
-        </View>
-        <View style={styles.preferencesRow}>
-          {
-            preferencesList.map((preference, index) => {
+        <View style={styles.eventBodyContainer}>
+          <View style={styles.tittleRow}>
+            <Text style={styles.tittleText}>{item.eventName}</Text>
+            <Text style={styles.timeText}>
+              Time : {item.alocatedTimeForEvent}
+            </Text>
+          </View>
+          <View style={styles.preferencesRow}>
+            {item.preferences.map((preference, index) => {
               return <PreferencesView key={index} text={preference} />;
-            })
-          }
-        </View>        
+            })}
+          </View>
+        </View>
+        <View style={styles.eventButtonContainer}>
+          <TouchableOpacity style={styles.side_bar_up}>
+            <Image
+              source={require("../assets/images/wrong_mark.png")}
+              style={styles.image_sidebar}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.side_bar_down}>
+            <Text style={styles.button_text_sidebar}>Edit</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.eventButtonContainer}>
-        <TouchableOpacity style={styles.side_bar_up}>
-          <Image
-            source={require("../assets/images/wrong_mark.png")}
-            style={styles.image_sidebar}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.side_bar_down}>
-          <Text style={styles.button_text_sidebar}>Edit</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

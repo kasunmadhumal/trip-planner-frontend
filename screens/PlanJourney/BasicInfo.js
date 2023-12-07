@@ -1,66 +1,106 @@
-import { Button, ScrollView, StyleSheet, Text, View} from "react-native";
-import { useState } from "react";
+import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { useCallback, useState } from "react";
 import TextInputField from "../../components/TextInputField";
 import FormChangeButton from "../../components/FormChangeButton";
+import { TimePickerModal } from "react-native-paper-dates";
 
 
 export default function BasicInfo({pageNumber, setPageNumber}) {
+  const [journeyStartingLocation, setJourneyStartingLocation] = useState("");
+  const [journeyStartDateAndTime, setJourneyStartDateAndTime] = useState("");
+  const [journeyStartingDate, setJourneyStartingDate] = useState("");
+  const [journeyStartingTime, setJourneyStartingTime] = useState("");
+  const [journeyEndDateAndTime, setJourneyEndDateAndTime] = useState("");
+  const [endingLocation, setEndingLocation] = useState("");
+  const [visibleTimePicker, setVisibleTimePicker] = useState(false);
 
-    const [journeyStartingLocation, setJourneyStartingLocation] = useState("");
-    const [journeyStartDateAndTime, setJourneyStartDateAndTime] = useState("");
-    const [journeyEndDateAndTime, setJourneyEndDateAndTime] = useState("");
-    const [endingLocation, setEndingLocation] = useState("");
+  //time picker codes
+  const onDismissTimePicker = useCallback(() => {
+    setVisibleTimePicker(false);
+  }, [setVisibleTimePicker]);
 
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>
-          <Text style={styles.tittleText}>Basic Informations</Text>
-          <View style={styles.formContainer}>
-            <Text style={styles.inputTittleText}>Journey Starting Place</Text>
+  const onConfirmTimePicker = useCallback(
+    ({ hours, minutes }) => {
+      setVisibleTimePicker(false);
+    },
+    [setVisibleTimePicker]
+  );
+
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.tittleText}>Basic Informations</Text>
+        <View style={styles.formContainer}>
+          <Text style={styles.inputTittleText}>Journey Starting Place</Text>
+          <TextInputField
+            placeholder="Search Starting Location"
+            inputValue={journeyStartingLocation}
+            setInputValue={setJourneyStartingLocation}
+          />
+          <Text style={styles.inputTittleText}>
+            Journey Starting Date & Time
+          </Text>
+
+          <View style={styles.selecotrsInput}>
             <TextInputField
-              placeholder="Search Starting Location"
-              inputValue={journeyStartingLocation}
-              setInputValue={setJourneyStartingLocation}
+              placeholder="Journey Starting Time"
+              inputValue={journeyStartingTime}
+              setInputValue={setJourneyStartingTime}
+              secureTextEntry={false}
+              selectorInput={true}
             />
-            <Text style={styles.inputTittleText}>Spent Time For Journey</Text>
-            <TextInputField
-              placeholder="Journey Start Date and Time"
-              inputValue={journeyStartDateAndTime}
-              setInputValue={setJourneyStartDateAndTime}
+
+            <TouchableOpacity
+              onPress={() => setVisibleTimePicker(true)}
+              style={styles.timePickerButton}
+            >
+              <Image
+                style={styles.timePickerButtonImage}
+                source={require("../../assets/images/timePicker.png")}
+              />
+            </TouchableOpacity>
+
+            <TimePickerModal
+              visible={visibleTimePicker}
+              onDismiss={onDismissTimePicker}
+              onConfirm={onConfirmTimePicker}
+              hours={12}
+              minutes={14}
             />
-            {/* <View
+          </View>
+
+          {/* <View
               style={styles.verticleLine}
             /> */}
-            <TextInputField
-              placeholder="Joourney End Date and Time"
-              inputValue={journeyEndDateAndTime}
-              setInputValue={setJourneyEndDateAndTime}
+          <TextInputField
+            placeholder="Joourney End Date and Time"
+            inputValue={journeyEndDateAndTime}
+            setInputValue={setJourneyEndDateAndTime}
+          />
+          <Text style={styles.inputTittleText}>Journey Ending Place</Text>
+          <TextInputField
+            placeholder="Search Ending Location"
+            inputValue={endingLocation}
+            setInputValue={setEndingLocation}
+          />
+          <View style={styles.buttonsContainer}>
+            <FormChangeButton
+              text="Preview"
+              onPress={() => {
+                setPageNumber(pageNumber - 1);
+              }}
             />
-            <Text style={styles.inputTittleText}>Journey Ending Place</Text>
-            <TextInputField
-              placeholder="Search Ending Location"
-              inputValue={endingLocation}
-              setInputValue={setEndingLocation}
+            <FormChangeButton
+              text="Next"
+              onPress={() => {
+                setPageNumber(pageNumber + 1);
+              }}
             />
-            <View style={styles.buttonsContainer}>
-              <FormChangeButton
-                text="Preview"
-                onPress={() => {
-                  setPageNumber(pageNumber - 1);
-                }}
-              />
-              <FormChangeButton
-                text="Next"
-                onPress={() => {
-                  setPageNumber(pageNumber + 1);
-                }}
-              />
-            </View>
           </View>
-        </ScrollView>
-      </View>
-    );
-        
+        </View>
+      </ScrollView>
+    </View>
+  );
 }
 
 
@@ -106,5 +146,20 @@ const styles = StyleSheet.create({
     width: 1,
     height: "10%",
     marginBottom: "2%",
+  },
+  selecotrsInput: {
+    width: "80%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  timePickerButton: {
+    marginBottom: "3%",
+  },
+
+  timePickerButtonImage: {
+    width: 30,
+    height: 30,
   },
 });

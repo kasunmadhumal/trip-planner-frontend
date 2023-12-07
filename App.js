@@ -3,10 +3,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View } from "react-native";
 import LoginScreen from "./screens/LoginScreen";
-import HomeScreen from "./screens/HomeScreen";
+import HomeScreenTabs from "./screens/BottomTabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SignupScreen from "./screens/SignupScreen";
 import PlanJourneyScreen from "./screens/PlanJourney/PlanJourneyScreen";
+import BottomTabs from "./screens/BottomTabs";
+
 
 const Stack = createNativeStackNavigator();
 const isLogin = false;
@@ -14,10 +16,10 @@ const isLogin = false;
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Bottom-tabs">
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
+          name="Bottom-tabs"
+          component={BottomTabs}
           options={{
             headerShown: false,
           }}

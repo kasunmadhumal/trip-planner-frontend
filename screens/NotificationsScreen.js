@@ -1,18 +1,11 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 
-export default function NotificationScreen({ navigation }) {
+export default function NotificationsScreen({ navigation }) {
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Notification Screen</Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
