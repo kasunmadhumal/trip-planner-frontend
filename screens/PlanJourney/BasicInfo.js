@@ -3,9 +3,12 @@ import { useCallback, useState } from "react";
 import TextInputField from "../../components/TextInputField";
 import FormChangeButton from "../../components/FormChangeButton";
 import { TimePickerModal } from "react-native-paper-dates";
+import GooglePlacesInput from "../../components/GooglePlacesInput";
 
 
-export default function BasicInfo({pageNumber, setPageNumber}) {
+
+export default function BasicInfo({ navigation, pageNumber, setPageNumber }) {
+
   const [journeyStartingLocation, setJourneyStartingLocation] = useState("");
   const [journeyStartDateAndTime, setJourneyStartDateAndTime] = useState("");
   const [journeyStartingDate, setJourneyStartingDate] = useState("");
@@ -32,10 +35,13 @@ export default function BasicInfo({pageNumber, setPageNumber}) {
         <Text style={styles.tittleText}>Basic Informations</Text>
         <View style={styles.formContainer}>
           <Text style={styles.inputTittleText}>Journey Starting Place</Text>
-          <TextInputField
+
+          {/* <TextInputField
             placeholder="Search Starting Location"
             inputValue={journeyStartingLocation}
             setInputValue={setJourneyStartingLocation}
+          /> */}
+          <GooglePlacesInput 
           />
           <Text style={styles.inputTittleText}>
             Journey Starting Date & Time

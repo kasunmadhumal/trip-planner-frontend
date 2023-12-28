@@ -17,7 +17,7 @@ import FinalPlan from "./FinalPlan";
 
 
 
-export default function PlanJourneyScreen() {
+export default function PlanJourneyScreen({ navigation }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [keyboardIsOpen, setKeyboardIsOpen] = useState(false);
 
@@ -47,6 +47,7 @@ export default function PlanJourneyScreen() {
               {
                 1: (
                   <BasicInfo
+                    navigation={navigation}
                     pageNumber={pageNumber}
                     setPageNumber={setPageNumber}
                   />
