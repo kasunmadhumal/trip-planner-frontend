@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import AddNewLocation from "./screens/addNewLocation/AddNewLocation";
 import SearchLocation from "./screens/searchLocation/SearchLocation";
+import 'react-native-gesture-handler';
 
 
 const Stack = createNativeStackNavigator();

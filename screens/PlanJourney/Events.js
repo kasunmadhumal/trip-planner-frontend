@@ -73,6 +73,7 @@ export default function Events({ pageNumber, setPageNumber }) {
     <GestureHandlerRootView>
       <FlatList
         data={[{ key: "content" }]}
+        showsVerticalScrollIndicator={false}
         renderItem={() => (
           <>
             <Text style={styles.tittleText}>Events</Text>

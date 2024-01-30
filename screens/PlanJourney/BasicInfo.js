@@ -1,14 +1,21 @@
-import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useCallback, useState } from "react";
 import TextInputField from "../../components/TextInputField";
 import FormChangeButton from "../../components/FormChangeButton";
 import { TimePickerModal } from "react-native-paper-dates";
 import GooglePlacesInput from "../../components/GooglePlacesInput";
-
-
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GOOGLE_MAPS_API_KEY } from "@env";
 
 export default function BasicInfo({ navigation, pageNumber, setPageNumber }) {
-
   const [journeyStartingLocation, setJourneyStartingLocation] = useState("");
   const [journeyStartDateAndTime, setJourneyStartDateAndTime] = useState("");
   const [journeyStartingDate, setJourneyStartingDate] = useState("");
@@ -31,22 +38,23 @@ export default function BasicInfo({ navigation, pageNumber, setPageNumber }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <Text style={styles.tittleText}>Basic Informations</Text>
+      <Text style={styles.tittleText}>Basic Informations</Text>
+      <Text style={styles.inputTittleText}>Journey Starting Place</Text>
+
+      <GooglePlacesInput typeOfLocation={"startingLocation"} />
+
+      <Text style={styles.inputTittleText}>Journey Ending Place</Text>
+
+      <GooglePlacesInput typeOfLocation={"endingLocation"} />
+
+      <Text style={styles.inputTittleText}>Journey Starting Date & Time</Text>
+
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="always"
+      >
         <View style={styles.formContainer}>
-          <Text style={styles.inputTittleText}>Journey Starting Place</Text>
-
-          {/* <TextInputField
-            placeholder="Search Starting Location"
-            inputValue={journeyStartingLocation}
-            setInputValue={setJourneyStartingLocation}
-          /> */}
-          <GooglePlacesInput 
-          />
-          <Text style={styles.inputTittleText}>
-            Journey Starting Date & Time
-          </Text>
-
           <View style={styles.selecotrsInput}>
             <TextInputField
               placeholder="Journey Starting Time"
@@ -75,19 +83,10 @@ export default function BasicInfo({ navigation, pageNumber, setPageNumber }) {
             />
           </View>
 
-          {/* <View
-              style={styles.verticleLine}
-            /> */}
           <TextInputField
             placeholder="Joourney End Date and Time"
             inputValue={journeyEndDateAndTime}
             setInputValue={setJourneyEndDateAndTime}
-          />
-          <Text style={styles.inputTittleText}>Journey Ending Place</Text>
-          <TextInputField
-            placeholder="Search Ending Location"
-            inputValue={endingLocation}
-            setInputValue={setEndingLocation}
           />
           <View style={styles.buttonsContainer}>
             <FormChangeButton
@@ -108,7 +107,6 @@ export default function BasicInfo({ navigation, pageNumber, setPageNumber }) {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
