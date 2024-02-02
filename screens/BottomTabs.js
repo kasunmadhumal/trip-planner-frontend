@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SettingsScreen from "./SettingsScreen";
 import NotificationsScreen from "./NotificationsScreen";
 import HomeScreen from "./HomeScreen";
-import ProfileScreen from "./ProfileScreen";
+import ProfileScreen from "./profile_mng/ProfileScreen";
 
 
 const Tab = createBottomTabNavigator();
