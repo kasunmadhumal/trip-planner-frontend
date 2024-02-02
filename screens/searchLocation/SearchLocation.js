@@ -1,7 +1,13 @@
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image} from "react-native";
+import { Text, View, StyleSheet, FlatList, TextInput, TouchableOpacity, Image } from "react-native";
+import { useRouter } from 'expo-router';
+import { useState } from 'react'
+
+const searchTypes = ["What we suggest", "What google suggest"]
 
 export default function SearchLocation() {
 
+    const router = useRouter();
+    const [selectedLocationType, setSelectedLocationType] = useState('What we suggest')
 
     return (
         <View>
@@ -21,6 +27,23 @@ export default function SearchLocation() {
                     />
                 </TouchableOpacity>
             </View>
+
+            <View style={styles.tabsContainer}>
+                <FlatList
+                    data={searchTypes}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            style={styles.tab(selectedLocationType, item)}
+                        >
+                            <Text style = { styles.tabText }>{item}</Text>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item}
+                    contentContainerStyle={{ columnGap: 12 }}
+                    horizontal
+                />
+            </View>
+
         </View>
     );
 }
@@ -33,8 +56,8 @@ const styles = StyleSheet.create({
         marginTop: 35,
         height: 50,
         marginHorizontal: 10
-      },
-      searchWrapper: {
+    },
+    searchWrapper: {
         flex: 1,
         backgroundColor: "white",
         marginRight: 12,
@@ -42,24 +65,41 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 16,
         height: "100%",
-      },
-      searchInput: {
+    },
+    searchInput: {
         fontFamily: "Roboto",
         width: "100%",
         height: "100%",
         paddingHorizontal: 16,
-      },
-      searchBtn: {
+    },
+    searchBtn: {
         width: 50,
         height: "100%",
         backgroundColor: "#84E9BD",
         borderRadius: 16,
         justifyContent: "center",
         alignItems: "center",
-      },
-      searchBtnImage: {
+    },
+    searchBtnImage: {
         width: "50%",
         height: "50%",
         tintColor: "white",
-      }
+    },
+    tabsContainer: {
+        width: "100%",
+        marginTop: 16,
+        alignItems: "center",
+    },
+    tab: (selectedLocationType, item) => ({
+        paddingVertical: 6,
+        paddingHorizontal: 20,
+        borderRadius: 16,
+        borderWidth: 0,
+        backgroundColor : selectedLocationType === item ? "#bcbcbc" : "#eeeeee",
+    }),
+    tabText: ({
+        color: "#444444"
+    }),
+
+    
 })
