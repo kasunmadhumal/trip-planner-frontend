@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import AddNewLocation from "./screens/addNewLocation/AddNewLocation";
 import SearchLocation from "./screens/searchLocation/SearchLocation";
+import ProfileEdit from "./screens/profile_mng/ProfileEdit";
 
 
 const Stack = createNativeStackNavigator();
@@ -65,6 +66,13 @@ export default function App() {
           <Stack.Screen
             name="map-screen"
             component={MapScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="profile-edit"
+            component={ProfileEdit}
             options={{
               headerShown: false,
             }}
