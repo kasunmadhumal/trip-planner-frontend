@@ -8,9 +8,10 @@ import BottomTabs from "./screens/BottomTabs";
 import MapScreen from "./screens/MapScreen";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import AddNewLocation from "./screens/addNewLocation/AddNewLocation";
+import LocationInfo from "./screens/addNewLocation/LocationInfo";
 import SearchLocation from "./screens/searchLocation/SearchLocation";
 import ProfileEdit from "./screens/profile_mng/ProfileEdit";
+import AddNewLocationScreen from "./screens/addNewLocation/AddNewLocationScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -51,7 +52,7 @@ export default function App() {
           />
           <Stack.Screen
             name="add-new-location"
-            component={AddNewLocation}
+            component={AddNewLocationScreen}
             options={{
               headerShown: false,
             }}
