@@ -2,10 +2,10 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import FormChangeButton from "../../components/FormChangeButton";
 
 
-export default function UploadPhotos({ pageNumber, setPageNumber }) {
+export default function LocationInfo({ pageNumber, setPageNumber }) {
   return (
     <View style={styles.container}>
-      <Text>Page 2</Text>
+      <Text>Page 1</Text>
       <View style={styles.buttonsContainer}>
         <FormChangeButton
           text="Preview"
