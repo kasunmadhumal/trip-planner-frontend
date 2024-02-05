@@ -15,9 +15,31 @@ import HomeScreenFunctionalitySelectionButton from "../components/HomeScreenFunc
 import TestingObjects from "./TestingObjects";
 import HomePageLocationCardView from "../components/HomePageLocationCardView";
 import { useState } from "react";
+import HomePageCustomerReviewsView from "../components/HomePageCustomerReviewsView";
+import Footer from "../components/Footer";
 
 export default function HomeScreen({ navigation }) {
   const [data, setData] = useState(TestingObjects());
+  const [reviews, setReviews] = useState([
+    {
+      id: 1,
+      name: "John Doe",
+      country: "USA",
+      rate: 3.7,
+      profileImage: require("../assets/images/avatar.png"),
+      review:
+        "I had a great experience with this app. I was able to find a ride easily and the driver was very friendly. I would recommend this app to anyone who needs a ride.I had a great experience with this app. I was able to find a ride easily and the driver was very friendly. I would recommend this app to anyone who needs a ride.",
+    },
+    {
+      id: 2,
+      name: "Rahul meheta",
+      country: "India",
+      rate: 4.5,
+      profileImage: require("../assets/images/avatar.png"),
+      review:
+        "I was able to find a ride to my destination quickly and easily. The driver was very friendly and I felt safe the entire time. I would definitely use this app again.",
+    },
+  ]);
 
   return (
     <SafeAreaView style={tw`flex-1`}>
@@ -42,7 +64,6 @@ export default function HomeScreen({ navigation }) {
               ]}
             >
               <View style={tw`flex-row justify-end`}>
-                {/* i want to create two images 1. profile image 2.crown */}
                 <Image
                   style={[
                     tw`rounded-full ml-4 mt-4`,
@@ -107,14 +128,16 @@ export default function HomeScreen({ navigation }) {
               <Text style={tw`text-3xl font-medium text-gray-900 mb-2`}>
                 Satisfied Customers Are Our Best Ads
               </Text>
-              <Text style={tw`text-gray-600 text-sm`}>
-                Check out this week’s selection of popular places that might
-                catch you eye.
-              </Text>
             </View>
             <View style={tw`w-full mt-5 ml-4`}>
-              <HomePageLocationCardView
-                data={data}
+              <HomePageCustomerReviewsView
+                navigation={navigation}
+                reviews={reviews}
+                style={tw`w-full`}
+              />
+            </View>
+            <View style={tw`w-full mt-10`}>
+              <Footer
                 navigation={navigation}
                 style={tw`w-full`}
               />

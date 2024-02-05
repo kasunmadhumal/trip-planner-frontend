@@ -1,5 +1,5 @@
 import {
-  Button,
+  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -10,27 +10,40 @@ import {
 import { useCallback, useState } from "react";
 import TextInputField from "../../components/TextInputField";
 import FormChangeButton from "../../components/FormChangeButton";
-import { TimePickerModal } from "react-native-paper-dates";
+import { DatePickerModal, TimePickerModal } from "react-native-paper-dates";
 import GooglePlacesInput from "../../components/GooglePlacesInput";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { GOOGLE_MAPS_API_KEY } from "@env";
+import { useDispatch, useSelector } from "react-redux";
+import { setStartingDate, setStartingTime } from "../../slices/journeySlice";
 
 export default function BasicInfo({ navigation, pageNumber, setPageNumber }) {
-  const [journeyStartingLocation, setJourneyStartingLocation] = useState("");
-  const [journeyStartDateAndTime, setJourneyStartDateAndTime] = useState("");
-  const [journeyStartingDate, setJourneyStartingDate] = useState("");
+  const [journeyStartingDate, setJourneyStartingDate] = useState(undefined);
   const [journeyStartingTime, setJourneyStartingTime] = useState("");
-  const [journeyEndDateAndTime, setJourneyEndDateAndTime] = useState("");
-  const [endingLocation, setEndingLocation] = useState("");
+  const [open, setOpen] = useState(false);
   const [visibleTimePicker, setVisibleTimePicker] = useState(false);
+  const dispatch = useDispatch();
 
-  //time picker codes
+  const onDismissSingle = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
+
+  const onConfirmSingle = useCallback(
+    (params) => {
+      const selectedDate = params?.date;
+      setJourneyStartingDate(selectedDate.toString());
+      dispatch(setStartingDate(selectedDate.toString()));
+      setOpen(false);
+    },
+    [setOpen, setJourneyStartingDate]
+  );
+
   const onDismissTimePicker = useCallback(() => {
     setVisibleTimePicker(false);
   }, [setVisibleTimePicker]);
 
   const onConfirmTimePicker = useCallback(
     ({ hours, minutes }) => {
+      setJourneyStartingTime(`${hours}:${minutes}`);
+      dispatch(setStartingTime(`${hours}:${minutes}`));
       setVisibleTimePicker(false);
     },
     [setVisibleTimePicker]
@@ -66,10 +79,10 @@ export default function BasicInfo({ navigation, pageNumber, setPageNumber }) {
 
             <TouchableOpacity
               onPress={() => setVisibleTimePicker(true)}
-              style={styles.timePickerButton}
+              style={styles.timeDatePickerButton}
             >
               <Image
-                style={styles.timePickerButtonImage}
+                style={styles.timeDatePickerButtonImage}
                 source={require("../../assets/images/timePicker.png")}
               />
             </TouchableOpacity>
@@ -80,27 +93,91 @@ export default function BasicInfo({ navigation, pageNumber, setPageNumber }) {
               onConfirm={onConfirmTimePicker}
               hours={12}
               minutes={14}
+              use24HourClock={true}
             />
           </View>
 
-          <TextInputField
-            placeholder="Joourney End Date and Time"
-            inputValue={journeyEndDateAndTime}
-            setInputValue={setJourneyEndDateAndTime}
-          />
-          <View style={styles.buttonsContainer}>
-            <FormChangeButton
-              text="Preview"
-              onPress={() => {
-                setPageNumber(pageNumber - 1);
-              }}
+          <View style={styles.selecotrsInput}>
+            <TextInputField
+              placeholder="Journey Starting Date"
+              inputValue={journeyStartingDate}
+              setInputValue={setJourneyStartingDate}
+              secureTextEntry={false}
+              selectorInput={true}
             />
-            <FormChangeButton
-              text="Next"
-              onPress={() => {
-                setPageNumber(pageNumber + 1);
-              }}
+
+            <TouchableOpacity
+              onPress={() => setOpen(true)}
+              style={styles.timeDatePickerButton}
+            >
+              <Image
+                style={styles.timeDatePickerButtonImage}
+                source={require("../../assets/images/date-picker.png")}
+              />
+            </TouchableOpacity>
+
+            <DatePickerModal
+              locale="en"
+              mode="single"
+              visible={open}
+              onDismiss={onDismissSingle}
+              date={journeyStartingDate}
+              onConfirm={onConfirmSingle}
             />
+          </View>
+
+          <View
+            style={[
+              styles.buttonsContainer,
+              {
+                justifyContent:
+                  pageNumber === 1
+                    ? "flex-end"
+                    : pageNumber === 4
+                    ? "flex-start"
+                    : "space-between",
+              },
+            ]}
+          >
+            {pageNumber > 1 && (
+              <>
+                <FormChangeButton
+                  text="Preview"
+                  onPress={() => {
+                    setPageNumber(pageNumber - 1);
+                  }}
+                />
+              </>
+            )}
+            {pageNumber < 4 && (
+              <>
+                <FormChangeButton
+                  text="Next"
+                  onPress={() => {
+                    // if(
+                    //   journeyStartingPlace === null ||
+                    //   journeyEndingPlace === null ||
+                    //   startingDate === null ||
+                    //   startingTime === null
+                    //   ){
+                    //       Alert.alert(
+                    //         "Incomplete Form",
+                    //         "Please complete all the required fields before proceeding to the next page.",
+                    //         [
+                    //           {
+                    //             text: "OK",
+                    //             onPress: () => console.log("OK Pressed"),
+                    //           },
+                    //         ]
+                    //       );
+                    //   return;
+                    // }
+
+                    setPageNumber(pageNumber + 1);
+                  }}
+                />
+              </>
+            )}
           </View>
         </View>
       </ScrollView>
@@ -123,9 +200,8 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     width: "80%",
-    marginTop: "3%",
+    marginTop: "8%",
     flexDirection: "row",
-    justifyContent: "space-between",
   },
   tittleText: {
     fontSize: 20,
@@ -158,11 +234,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  timePickerButton: {
+  timeDatePickerButton: {
     marginBottom: "3%",
   },
 
-  timePickerButtonImage: {
+  timeDatePickerButtonImage: {
     width: 30,
     height: 30,
   },

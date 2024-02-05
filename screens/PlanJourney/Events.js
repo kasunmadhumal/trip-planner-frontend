@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   Image,
+  Alert,
 } from "react-native";
 import { useCallback, useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -15,8 +16,51 @@ import "react-native-gesture-handler";
 import TextInputField from "../../components/TextInputField";
 import Event from "../../components/Event";
 import FormChangeButton from "../../components/FormChangeButton";
+import SearchingTextInputFieldForEvent from "../../components/SearchingTextInputFieldForEvent";
+import SearchingTextInputFieldForPreferences from "../../components/SearchingTextInputFieldForPreferences";
+import { useDispatch } from "react-redux";
+import {
+  setSelectEventsAndLocationsList,
+} from "../../slices/journeySlice";
 
 export default function Events({ pageNumber, setPageNumber }) {
+  const [eventNameList, setEventNameList] = useState([
+    {
+      id: 202,
+      eventName: "shopping",
+    },
+    {
+      id: 203,
+      eventName: "travelling",
+    },
+    {
+      id: 252,
+      eventName: "Swimming",
+    },
+    {
+      id: 253,
+      eventName: "Hiking",
+    },
+  ]);
+  const [preferencesNameList, setPreferencesNameList] = useState([
+    {
+      id: 252,
+      preference: "#Spicy",
+    },
+    {
+      id: 253,
+      preference: "#Breakfast",
+    },
+    {
+      id: 302,
+      preference: "#high",
+    },
+    {
+      id: 303,
+      preference: "#deep",
+    },
+  ]);
+  const dispatch = useDispatch();
   const [eventName, setEventName] = useState("");
   const [alocatedTimeForEvent, setAlocatedTimeForEvent] = useState("");
   const [preferences, setPreferences] = useState("");
@@ -67,6 +111,10 @@ export default function Events({ pageNumber, setPageNumber }) {
     };
 
     setEventList([...eventList, eventObject]);
+    setEventName("");
+    setAlocatedTimeForEvent("");
+    setPreferences("");
+    
   }
 
   return (
@@ -79,11 +127,14 @@ export default function Events({ pageNumber, setPageNumber }) {
             <Text style={styles.tittleText}>Events</Text>
             <View style={styles.formContainer}>
               <Text style={styles.inputTittleText}>Search Events You need</Text>
-              <TextInputField
+
+              <SearchingTextInputFieldForEvent
                 placeholder="Search Events"
                 inputValue={eventName}
                 setInputValue={setEventName}
+                eventNameList={eventNameList}
               />
+
               <Text style={styles.inputTittleText}>
                 Allocated Time For Event
               </Text>
@@ -113,16 +164,20 @@ export default function Events({ pageNumber, setPageNumber }) {
                   onConfirm={onConfirm}
                   hours={12}
                   minutes={14}
+                  use24HourClock={true}
                 />
               </View>
               <Text style={styles.inputTittleText}>
                 Add Preferences For Event
               </Text>
-              <TextInputField
-                placeholder="Search Preferences (Ex: #Spyci#breakfast)"
+
+              <SearchingTextInputFieldForPreferences
+                placeholder="Search Preferences"
                 inputValue={preferences}
                 setInputValue={setPreferences}
+                preferencesNameList={preferencesNameList}
               />
+              <Text style={{width:"80%", justifyContent:"flex-start"}}>{preferences}</Text>
 
               <View style={styles.saveButtonContainer}>
                 <TouchableOpacity
@@ -147,19 +202,55 @@ export default function Events({ pageNumber, setPageNumber }) {
                   </View>
                 </View>
               </View>
-              <View style={styles.buttonsContainer}>
-                <FormChangeButton
-                  text="Preview"
-                  onPress={() => {
-                    setPageNumber(pageNumber - 1);
-                  }}
-                />
-                <FormChangeButton
-                  text="Next"
-                  onPress={() => {
-                    setPageNumber(pageNumber + 1);
-                  }}
-                />
+              <View
+                style={[
+                  styles.buttonsContainer,
+                  {
+                    justifyContent:
+                      pageNumber === 1
+                        ? "flex-end"
+                        : pageNumber === 4
+                        ? "flex-start"
+                        : "space-between",
+                  },
+                ]}
+              >
+                {pageNumber > 1 && (
+                  <>
+                    <FormChangeButton
+                      text="Preview"
+                      onPress={() => {
+                        setPageNumber(pageNumber - 1);
+                      }}
+                    />
+                  </>
+                )}
+                {pageNumber < 4 && (
+                  <>
+                    <FormChangeButton
+                      text="Next"
+                      onPress={() => {
+                      //   if(
+                      //     eventList.length === 0
+                      //   ){
+                      //      Alert.alert(
+                      //       "Incomplete Form",
+                      //       "Please complete all the required fields before proceeding to the next page.",
+                      //       [
+                      //         {
+                      //           text: "OK",
+                      //           onPress: () => console.log("OK Pressed"),
+                      //         },
+                      //       ]
+                      //     );
+                      // return;
+                      //   }
+                        dispatch(setSelectEventsAndLocationsList(data));
+                        setPageNumber(pageNumber + 1);
+                      }}
+                    />
+                  </>
+                )}
               </View>
             </View>
           </>
@@ -187,7 +278,6 @@ const styles = StyleSheet.create({
     width: "80%",
     marginTop: "3%",
     flexDirection: "row",
-    justifyContent: "space-between",
   },
   tittleText: {
     fontSize: 20,
