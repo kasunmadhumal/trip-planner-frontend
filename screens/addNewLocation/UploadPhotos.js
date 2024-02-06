@@ -1,13 +1,15 @@
 import { Button, StyleSheet, Text, View, ScrollView } from "react-native";
 import FormChangeButton from "../../components/FormChangeButton";
 
-
 export default function UploadPhotos({ pageNumber, setPageNumber }) {
+  
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Text style={styles.tittleText}>Location Information</Text>
         <View style={styles.formContainer}>
+          
           <View style={styles.buttonsContainer}>
             <FormChangeButton
               text="Preview"
