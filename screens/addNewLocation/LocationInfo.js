@@ -14,22 +14,37 @@ export default function LocationInfo({ pageNumber, setPageNumber }) {
           <TextInputField
             placeholder="Location Name"
           />
+
           <Text style={styles.inputTittleText}>Location Coordinates</Text>
+          <View style={{ flexDirection: "row", alignItems: "", justifyContent: "space-between", width: "80%" }}>
           <TextInputField 
-            placeholder="Latitude and Longitude" 
-          />   
+            placeholder="Latitude and Longitude"
+            style={{ flex: 1 }} 
+          />
+          <Text style={styles.orText}>or</Text>
+          <TextInputField 
+            placeholder="Current Location" 
+            style={{ flex: 1 }}
+          />
+          </View>
+
           <Text style={styles.inputTittleText}>Find the Matching Events with the Location</Text>
           <TextInputField
             placeholder="Swimming Diving RockClimbing"
           />
+          
           <Text style={styles.inputTittleText}>Add Matching Preferences for the Events</Text>
           <TextInputField
             placeholder="#NaturalPond #Forest #BeachHouse"
           />
+          
           <Text style={styles.inputTittleText}>About the Place</Text>
           <TextInputField
+            style={{height: 200}} 
+            multiline={true}
             placeholder="Description about the location" 
           />
+          
           <View style={styles.buttonsContainer}>
             <FormChangeButton
               text="Preview"
@@ -101,5 +116,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  orText: {
+    marginHorizontal: 5,
+    marginTop: 15,
+    fontSize: 15,
+    color: "#726E6E",
   },
 });

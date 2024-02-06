@@ -7,15 +7,18 @@ export default function TextInputField({
   setInputValue,
   secureTextEntry,
   selectorInput,
+  style,
+  multiline,
 }) {
   return (
     <TextInput
-      style={styles.input}
+      style={[styles.input, style]}
       width={selectorInput ? "85%" : "80%"}
       placeholder={placeholder}
       onChangeText={setInputValue}
       value={inputValue}
       secureTextEntry={secureTextEntry}
+      multiline={multiline}
     />
   );
 }
