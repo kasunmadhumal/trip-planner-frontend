@@ -1,25 +1,29 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, ScrollView } from "react-native";
 import FormChangeButton from "../../components/FormChangeButton";
 
 
 export default function UploadPhotos({ pageNumber, setPageNumber }) {
   return (
     <View style={styles.container}>
-      <Text>Page 2</Text>
-      <View style={styles.buttonsContainer}>
-        <FormChangeButton
-          text="Preview"
-          onPress={() => {
-            setPageNumber(pageNumber - 1);
-          }}
-        />
-        <FormChangeButton
-          text="Next"
-          onPress={() => {
-            setPageNumber(pageNumber + 1);
-          }}
-        />
-      </View>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.tittleText}>Location Information</Text>
+        <View style={styles.formContainer}>
+          <View style={styles.buttonsContainer}>
+            <FormChangeButton
+              text="Preview"
+              onPress={() => {
+                setPageNumber(pageNumber - 1);
+              }}
+            />
+            <FormChangeButton
+              text="Next"
+              onPress={() => {
+                setPageNumber(pageNumber + 1);
+              }}
+            />
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -37,5 +41,22 @@ const styles = StyleSheet.create({
     marginTop: "3%",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  tittleText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+    color: "#2F264B",
+    alignSelf: "flex-start",
+    marginLeft: "10%",
+    marginBottom: "3%",
+  },
+  scrollView: {
+    width: "100%",
+  },
+  formContainer: {
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
   },
 });

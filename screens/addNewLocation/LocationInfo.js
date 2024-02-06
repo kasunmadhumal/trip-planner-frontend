@@ -1,25 +1,51 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import FormChangeButton from "../../components/FormChangeButton";
+import TextInputField from "../../components/TextInputField";
 
 
 export default function LocationInfo({ pageNumber, setPageNumber }) {
   return (
     <View style={styles.container}>
-      <Text>Page 1</Text>
-      <View style={styles.buttonsContainer}>
-        <FormChangeButton
-          text="Preview"
-          onPress={() => {
-            setPageNumber(pageNumber - 1);
-          }}
-        />
-        <FormChangeButton
-          text="Next"
-          onPress={() => {
-            setPageNumber(pageNumber + 1);
-          }}
-        />
-      </View>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.tittleText}>Location Information</Text>
+        <View style={styles.formContainer}>
+          
+          <Text style={styles.inputTittleText}>Location Name</Text>
+          <TextInputField
+            placeholder="Location Name"
+          />
+          <Text style={styles.inputTittleText}>Location Coordinates</Text>
+          <TextInputField 
+            placeholder="Latitude and Longitude" 
+          />   
+          <Text style={styles.inputTittleText}>Find the Matching Events with the Location</Text>
+          <TextInputField
+            placeholder="Swimming Diving RockClimbing"
+          />
+          <Text style={styles.inputTittleText}>Add Matching Preferences for the Events</Text>
+          <TextInputField
+            placeholder="#NaturalPond #Forest #BeachHouse"
+          />
+          <Text style={styles.inputTittleText}>About the Place</Text>
+          <TextInputField
+            placeholder="Description about the location" 
+          />
+          <View style={styles.buttonsContainer}>
+            <FormChangeButton
+              text="Preview"
+              onPress={() => {
+                setPageNumber(pageNumber - 1);
+              }}
+            />
+            <FormChangeButton
+              text="Next"
+              onPress={() => {
+                setPageNumber(pageNumber + 1);
+              }}
+            />
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -36,6 +62,44 @@ const styles = StyleSheet.create({
     width: "80%",
     marginTop: "3%",
     flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  formContainer: {
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
+  },
+  scrollView: {
+    width: "100%",
+  },
+  tittleText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+    color: "#2F264B",
+    alignSelf: "flex-start",
+    marginLeft: "10%",
+    marginBottom: "3%",
+  },
+  inputTittleText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+    color: "#726E6E",
+    alignSelf: "flex-start",
+    marginLeft: "10%",
+    marginBottom: "2%",
+  },
+  verticleLine: {
+    backgroundColor: "#848080",
+    width: 1,
+    height: "10%",
+    marginBottom: "2%",
+  },
+  selecotrsInput: {
+    width: "80%",
+    flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
   },
 });
