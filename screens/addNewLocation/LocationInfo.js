@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import FormChangeButton from "../../components/FormChangeButton";
 import TextInputField from "../../components/TextInputField";
 
-
 export default function LocationInfo({ pageNumber, setPageNumber }) {
   return (
     <View style={styles.container}>

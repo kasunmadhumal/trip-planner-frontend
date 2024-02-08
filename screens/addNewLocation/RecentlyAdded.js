@@ -1,15 +1,18 @@
 import { Button, StyleSheet, Text, View, ScrollView } from "react-native";
 import FormChangeButton from "../../components/FormChangeButton";
 import FormSubmitButton from "../../components/FormSubmitButton";
-
+import LocationCard from "../../components/LocationCard";
 
 export default function RecentlyAdded({ pageNumber, setPageNumber }) {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Text style={styles.tittleText}>Recently Added</Text>
+        <LocationCard/>
+        <LocationCard/>
         <View style={styles.formContainer}></View>
         <Text style={styles.tittleText}>Added Places</Text>
+        <LocationCard/>
         <View style={styles.formContainer}>
           <View style={styles.buttonsContainer}>
             <FormChangeButton
@@ -18,7 +21,7 @@ export default function RecentlyAdded({ pageNumber, setPageNumber }) {
                 setPageNumber(pageNumber - 1);
               }}
             />
-            <FormChangeButton
+            <FormSubmitButton
               text="Next"
               onPress={() => {
                 setPageNumber(pageNumber + 1);
