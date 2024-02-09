@@ -1,15 +1,26 @@
-import { Button, StyleSheet, Text, View, ScrollView } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, ScrollView } from "react-native";
 import FormChangeButton from "../../components/FormChangeButton";
+import UploadImageCard from "../../components/UploadImageCard";
 
 export default function UploadPhotos({ pageNumber, setPageNumber }) {
-  
+
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Text style={styles.tittleText}>Location Information</Text>
+        <Text style={styles.tittleText}>Uploaded Photos</Text>
         <View style={styles.formContainer}>
-          
+
+          <UploadImageCard />
+
+          <View style={styles.saveButtonContainer}>
+            <TouchableOpacity
+              style={styles.saveButton}
+            >
+              <Text style={styles.saveButtonTextStyle}>Save</Text>
+            </TouchableOpacity>
+          </View> 
+
           <View style={styles.buttonsContainer}>
             <FormChangeButton
               text="Preview"
@@ -60,5 +71,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     width: "100%",
+  },
+  saveButton: {
+    width: "25%",
+    height: "100%",
+    backgroundColor: "#009CF3",
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "2%",
+  },
+  saveButtonTextStyle: {
+    fontSize: 15,
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+    color: "#fff",
+  },
+  saveButtonContainer: {
+    marginBottom: "4%",
+    height: 40,
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
 });
