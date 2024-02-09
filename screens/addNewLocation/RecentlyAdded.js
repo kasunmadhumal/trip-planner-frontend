@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View, ScrollView } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View, ScrollView } from "react-native";
 import FormChangeButton from "../../components/FormChangeButton";
 import FormSubmitButton from "../../components/FormSubmitButton";
 import LocationCard from "../../components/LocationCard";
@@ -14,6 +14,14 @@ export default function RecentlyAdded({ pageNumber, setPageNumber }) {
         <Text style={styles.tittleText}>Added Places</Text>
         <LocationCard/>
         <View style={styles.formContainer}>
+
+          <View style={styles.doneButtonContainer}>
+            <TouchableOpacity
+              style={styles.doneButton}
+            >
+              <Text style={styles.doneButtonTextStyle}>Done</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.buttonsContainer}>
             <FormChangeButton
               text="Preview"
@@ -64,5 +72,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     width: "100%",
+  },
+  doneButton: {
+    width: "25%",
+    height: "100%",
+    backgroundColor: "#009CF3",
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "2%",
+  },
+  doneButtonTextStyle: {
+    fontSize: 15,
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+    color: "#fff",
+  },
+  doneButtonContainer: {
+    marginBottom: "4%",
+    height: 40,
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
 });
