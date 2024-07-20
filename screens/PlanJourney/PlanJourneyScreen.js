@@ -14,12 +14,12 @@ import BasicInfo from "./BasicInfo";
 import Events from "./Events";
 import Location from "./Location";
 import FinalPlan from "./FinalPlan";
-
-
+import EndPoints from "../../data/api/EndPoints";
 
 export default function PlanJourneyScreen({ navigation }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [keyboardIsOpen, setKeyboardIsOpen] = useState(false);
+  const [journey, setJourney] = useState(null);
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", () => {
@@ -34,7 +34,7 @@ export default function PlanJourneyScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        //behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
         <View style={styles.container}>
@@ -54,18 +54,21 @@ export default function PlanJourneyScreen({ navigation }) {
                 ),
                 2: (
                   <Events
+                    navigation={navigation}
                     pageNumber={pageNumber}
                     setPageNumber={setPageNumber}
                   />
                 ),
                 3: (
                   <Location
+                    navigation={navigation}
                     pageNumber={pageNumber}
                     setPageNumber={setPageNumber}
                   />
                 ),
                 4: (
                   <FinalPlan
+                    navigation={navigation}
                     pageNumber={pageNumber}
                     setPageNumber={setPageNumber}
                   />

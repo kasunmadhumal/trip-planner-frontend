@@ -44,7 +44,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={tw`flex-1`}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        //behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={tw`flex-1`}
       >
         <View

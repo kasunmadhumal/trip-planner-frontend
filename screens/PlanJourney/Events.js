@@ -245,6 +245,7 @@ export default function Events({ pageNumber, setPageNumber }) {
                       //     );
                       // return;
                       //   }
+                      
                         dispatch(setSelectEventsAndLocationsList(data));
                         setPageNumber(pageNumber + 1);
                       }}

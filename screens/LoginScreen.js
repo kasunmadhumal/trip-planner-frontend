@@ -31,7 +31,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        //behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
         <View style={styles.container}>

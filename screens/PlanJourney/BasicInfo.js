@@ -14,6 +14,7 @@ import { DatePickerModal, TimePickerModal } from "react-native-paper-dates";
 import GooglePlacesInput from "../../components/GooglePlacesInput";
 import { useDispatch, useSelector } from "react-redux";
 import { setStartingDate, setStartingTime } from "../../slices/journeySlice";
+import EndPoints from "../../data/api/EndPoints";
 
 export default function BasicInfo({ navigation, pageNumber, setPageNumber }) {
   const [journeyStartingDate, setJourneyStartingDate] = useState(undefined);

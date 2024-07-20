@@ -53,7 +53,7 @@ export default function PageStateComponent({ textValue, status, color }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.25,
+    flex: 0.3333,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
